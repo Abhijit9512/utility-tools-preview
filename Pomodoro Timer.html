@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pomodoro Timer</title>
+  <meta name="description" content="Work and break timer using the Pomodoro technique.">
+  <style>
+    body {font-family:Arial,Helvetica,sans-serif; max-width:600px; margin:40px auto; padding:20px;}
+    .timer {font-size:48px; margin:15px 0;}
+    button {padding:10px 15px; background:#2563eb;color:white;border:none;border-radius:4px;margin-right:5px;}
+  </style>
+</head>
+<body>
+  <h1>Pomodoro Timer</h1>
+  <p>Standard work interval: 25 minutes, break: 5 minutes.</p>
+  <div class="timer" id="display">00:25:00</div>
+  <button onclick="decreaseWork()">‑5 min (Work)</button>
+  <button onclick="decreaseBreak()">‑5 min (Break)</button>
+  <button onclick="startPomodoro()">Start</button>
+  <button onclick="reset()">Reset</button>
+
+  <script>
+    let workSec = 25 * 60;
+    let breakSec = 5 * 60;
+    let isRunning = false;
+    let currentSec = workSec;
+    let timerId;
+
+    function startPomodoro() {
+      if (isRunning) return;
+      isRunning = true;
+      document.getElementById('display').textContent = `00:${String(Math.floor(currentSec/60)).padStart(2,'0')}:${String(currentSec%60).padStart(2,'0')}`;
+      timerId = setInterval(() => {
+        if (currentSec <= 0) {
+          clearInterval(timerId);
+          isRunning = false;
+          alert('Break time!');
+          currentSec = breakSec;
+        } else {
+          currentSec--;
+        }
+        const h = Math.floor(currentSec / 3600);
+        const m = Math.floor((currentSec % 3600) / 60);
+        const s = currentSec % 60;
+        document.getElementById('display').textContent = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+        if (h === 0 && m === 0 && s === 0) {
+          clearInterval(timerId);
+          isRunning = false;
+          alert('Break ended – start next work session');
+          currentSec = workSec;
+        }
+      }
+    }
+    function decreaseWork() { currentSec = Math.max(0, currentSec - 300); }
+    function decreaseBreak() { currentSec = Math.max(0, currentSec - 300); }
+    function reset() {
+      clearInterval(timerId);
+      isRunning = false;
+      document.getElementById('display').textContent = '00:25:00';
+      currentSec = workSec;
+    }
+  </script>
+</body>
+</html>
