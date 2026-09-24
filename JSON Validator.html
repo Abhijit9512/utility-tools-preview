@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Validator</title>
+  <meta name="description" content="Validate JSON syntax without formatting.">
+  <style>
+    body {font-family:Arial,Helvetica,sans-serif; max-width:600px; margin:40px auto; padding:20px;}
+    textarea {width:100%; height:200px; margin-bottom:10px;}
+    button {padding:8px 15px; background:#2563eb;color:white;border:none;border-radius:4px;}
+    .result {margin-top:15px; font-weight:bold;}
+  </style>
+</head>
+<body>
+  <h1>JSON Validator</h1>
+  <textarea id="jsonInput" placeholder='Enter JSON here…'></textarea>
+  <button onclick="validate()">Validate</button>
+  <div class="result" id="result"></div>
+
+  <script>
+    function validate() {
+      const txt = document.getElementById('jsonInput').value;
+      try {
+        JSON.parse(txt);
+        document.getElementById('result').textContent = 'Valid JSON.';
+      } catch (e) {
+        document.getElementById
