@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Percentage Calculator</title>
+  <meta name="description" content="Calculate percentages and discounts.">
+  <style>
+    body {font-family:Arial,Helvetica,sans-serif; max-width:600px; margin:40px auto; padding:20px;}
+    input {margin-top:10px; padding:5px;}
+    button {margin-top:15px; padding:8px 15px; background:#2563eb;color:white;border:none;border-radius:4px;cursor:pointer;}
+    .result {margin-top:20px; font-weight:bold;}
+  </style>
+</head>
+<body>
+  <h1>Percentage Calculator</h1>
+  <p>Enter the whole value and the percentage you want to find.</p>
+  <input type="number" id="value" placeholder="Value">
+  <input type="number" id="percent" placeholder="Percentage">
+  <button onclick="calculate()">Calculate</button>
+  <div class="result" id="result"></div>
+
+  <script>
+    function calculate() {
+      const val = parseFloat(document.getElementById('value').value);
+      const pct = parseFloat(document.getElementById('percent').value);
+      if (isNaN(val) || isNaN(pct)) { document.getElementById('result').textContent='Invalid input.'; return; }
+      const result = (val * pct) / 100;
+      document.getElementById('result').textContent = `${val} × ${pct}% = ${result}`;
+    }
+  </script>
+</body>
+</html>
